@@ -1,0 +1,255 @@
+:root {
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-text-main: #111827;
+  --color-text-muted: #6B7280;
+  --color-bg-page: #F9FAFB;
+  --color-bg-card: #FFFFFF;
+  --color-accent: #FACC15;
+  --color-border: #E5E7EB;
+}
+
+.header {
+    background-color: var(--color-primary);
+    height: 80px;
+}
+
+.header h1 {
+    color: #FFFFFF;
+    font-size: 2rem;
+    line-height: 80px;
+    padding: 0 10px;
+}
+
+.hambuger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 80px;
+    padding-bottom: 10px;
+}
+
+.main {
+    width: 100%;
+    padding: 0 20px ;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 3rem;
+    color: var(--color-text-main);
+    text-align: center;
+}
+
+.subtitle {
+    margin-top: -20px;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    line-height: 40px;
+}
+
+.hero {
+  position: relative;
+  width: 90%;
+  margin-bottom: 20px;
+  place-self: center;
+  min-height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.heroImg {
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  max-height: 400px;
+}
+
+
+.heroOverlay {
+  position: absolute;
+  inset: 0; 
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--color-bg-page);
+  font-weight: bold;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.searchBar {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    gap: 10px;
+}
+
+.searchInput {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput:hover {
+    border-color: var(--color-primary-hover);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+.searchButton {
+    padding: 10px 15px;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchButton:hover {
+    background-color: var(--color-primary-hover);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sectionHeader {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-text-main);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 0.8fr));
+    gap: 20px;
+    margin-bottom: 40px;
+    place-content: center;
+}
+
+.productCard {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    place-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.productCard:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.productCard h4 {
+    font-size: 1.25rem;
+    color: var(--color-text-main);
+    margin-bottom: 10px;
+}
+
+.productCard image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.productCard p {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-top: 10px;
+}
+
+.profileGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 0.8fr));
+    gap: 20px;
+    margin-bottom: 40px;
+    place-content: center;
+}
+
+.profileCard {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    place-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profileCard h4 {
+    font-size: 1.25rem;
+    color: var(--color-text-main);
+    margin-bottom: 10px;
+}
+
+.profileCard image {
+    border-radius: 50%;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.profileCard p {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-top: 10px;
+}
+
+.footer {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px 10px;
+    margin-top: 40px;
+}
+
+@media (max-width: 800px) {
+     .hambuger {
+        display: inline-block;
+        
+    }
+
+    .header h1 {
+        display: inline;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 400px) {
+    .title {
+        font-size: 2rem;
+    }
+    .subtitle{
+        font-size: 0.7rem;
+    }
+
+    .sectionHeader {
+        font-size: 1.5rem;
+    }
+    .heroOverlay {
+        font-size: 1rem;
+    }
+}
