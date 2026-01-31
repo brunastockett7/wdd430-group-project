@@ -138,7 +138,7 @@ export const makersGallery = [
   {
     id: "kids",
     title: "Made With Family",
-    photo: "/story/kids-webp.jpg",
+    photo: "/story/kids-webp",
     description:
       "Handcrafted work is part of our family life — creating together and learning together.",
   },
