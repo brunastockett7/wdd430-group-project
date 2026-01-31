@@ -107,7 +107,7 @@ export default function Home() {
             <div className={styles.storyImages}>
               <div className={styles.storyImg}>
                 <Image
-                  src="/story/kids-webp"
+                  src="/story/kids.webp"
                   alt="Children learning pottery"
                   fill
                   className={styles.cardImage}
