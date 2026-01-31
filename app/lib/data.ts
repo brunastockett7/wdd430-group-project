@@ -111,7 +111,6 @@ export const reviewsByProduct: Record<number, Review[]> = {
   ],
 };
 
-/* ✅ ADDITION — Makers Gallery (ALL story images) */
 
 export const makersGallery = [
   {
