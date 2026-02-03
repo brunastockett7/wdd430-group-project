@@ -16,6 +16,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+/* Added for better mobile rendering */
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
   description: "A marketplace for unique, handcrafted items.",
