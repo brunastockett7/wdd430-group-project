@@ -46,6 +46,10 @@ export default function Home() {
             <Link href="/classes" className={styles.secondaryBtn}>
               Join classes
             </Link>
+
+            <Link href="/sponsors" className={styles.secondaryBtn}>
+              Meet our sponsors
+            </Link>
           </div>
         </div>
       </section>
