@@ -10,7 +10,16 @@ export type Product = {
   price: number;
   image: string;
   sellerId: number;
+  sellerName: string;
   description: string;
+
+  category: string;
+  rating: number;
+  reviewsCount: number;
+  materials: string[];
+  dimensions?: string;
+  handmade: boolean;
+  inStock: boolean;
 };
 
 export type Review = {
@@ -51,6 +60,7 @@ export const sellerDetails = {
   },
 } as const;
 
+
 export const products: Product[] = [
   {
     id: 1,
@@ -58,8 +68,16 @@ export const products: Product[] = [
     price: 25,
     image: "/products/mug.webp",
     sellerId: 1,
+    sellerName: "Emily Crafts",
     description:
       "A warm, sturdy mug made by hand — perfect for coffee, tea, and slow mornings.",
+    category: "Kitchen",
+    rating: 4.8,
+    reviewsCount: 124,
+    materials: ["Ceramic", "Food-safe glaze"],
+    dimensions: "350 ml",
+    handmade: true,
+    inStock: false,
   },
   {
     id: 2,
@@ -67,8 +85,16 @@ export const products: Product[] = [
     price: 40,
     image: "/products/purse.webp",
     sellerId: 2,
+    sellerName: "Mountain Loom",
     description:
       "A linen tote with hand-embroidered flowers — pretty, practical, and easy to carry.",
+    category: "Accessories",
+    rating: 4.6,
+    reviewsCount: 89,
+    materials: ["Linen", "Cotton thread"],
+    dimensions: "38 × 42 cm",
+    handmade: true,
+    inStock: true,
   },
   {
     id: 3,
@@ -76,8 +102,16 @@ export const products: Product[] = [
     price: 75,
     image: "/products/crochet-blanket.webp",
     sellerId: 2,
+    sellerName: "Mountain Loom",
     description:
       "A cozy crochet blanket made with soft yarn — the kind you grab first on a cold day.",
+    category: "Home Decor",
+    rating: 4.9,
+    reviewsCount: 57,
+    materials: ["Acrylic yarn", "Wool blend"],
+    dimensions: "120 × 150 cm",
+    handmade: true,
+    inStock: false,
   },
   {
     id: 4,
@@ -85,8 +119,16 @@ export const products: Product[] = [
     price: 35,
     image: "/products/embroidery.webp",
     sellerId: 2,
+    sellerName: "Mountain Loom",
     description:
       "Floral hoop art stitched slowly and carefully — a gentle touch for any room.",
+    category: "Wall Art",
+    rating: 4.7,
+    reviewsCount: 63,
+    materials: ["Cotton fabric", "Embroidery floss", "Wooden hoop"],
+    dimensions: "20 cm diameter",
+    handmade: true,
+    inStock: true,
   },
   {
     id: 5,
@@ -94,10 +136,19 @@ export const products: Product[] = [
     price: 55,
     image: "/products/wooden-box.webp",
     sellerId: 1,
+    sellerName: "Emily Crafts",
     description:
       "A small carved wooden box for keepsakes — made to hold the little things that matter.",
+    category: "Storage",
+    rating: 4.5,
+    reviewsCount: 41,
+    materials: ["Oak wood", "Natural oil finish"],
+    dimensions: "18 × 12 × 8 cm",
+    handmade: true,
+    inStock: true,
   },
 ];
+
 
 export const reviewsByProduct: Record<number, Review[]> = {
   1: [
