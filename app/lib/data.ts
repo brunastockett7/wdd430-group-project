@@ -19,7 +19,7 @@ export type Product = {
   materials: string[];
   dimensions?: string;
   handmade: boolean;
-  inStock: Boolean;
+  inStock: boolean;
 };
 
 export type Review = {
