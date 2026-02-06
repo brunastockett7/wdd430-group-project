@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { products } from "../lib/data";
 import { addItem } from "../lib/cart";
 
+
 export default function ProductsPage() {
   const router = useRouter();
 
@@ -64,9 +65,47 @@ export default function ProductsPage() {
             </div>
 
             <div style={{ padding: 16 }}>
-              <h2 style={{ margin: "0 0 8px" }}>{p.name}</h2>
-              <p style={{ margin: "0 0 10px" }}>{p.description}</p>
+              <h2 style={{ margin: "0 0 6px" }}>{p.name}</h2>
+
+              <div style={{ fontSize: 14, color: "#555", marginBottom: 6 }}>
+  ⭐ {p.rating}
+</div>
+
+              <p style={{ margin: "0 0 10px", fontSize: 14 }}>{p.description}</p>
               <strong>${p.price.toFixed(2)}</strong>
+
+              <div style={{ fontSize: 13, color: "#666", marginBottom: 8 }}>
+  Materials: {p.materials.join(", ")}
+</div>
+
+              {p.handmade && (
+                <span style={{
+                  fontSize: 12,
+                  background: "#fef3c7",
+                  padding: "4px 8px",
+                  borderRadius: 999,
+                  marginRight: 6
+                }}>
+                  🖐 Handmade
+                </span>
+              )}
+
+              
+              <div style={{ fontSize: 13, color: "#666", marginBottom: 6 }}>
+  by <strong>{p.sellerName}</strong>
+</div>
+
+
+              {!p.inStock && (
+                <span style={{
+                  fontSize: 12,
+                  color: "crimson",
+                  fontWeight: 600
+                }}>
+                  Out of stock
+                </span>
+              )}
+
 
               <div style={{ display: "flex", gap: 10, marginTop: 12, alignItems: "center" }}>
                 <Link href={`/products/${p.id}`} style={{ textDecoration: "underline" }}>
@@ -74,6 +113,7 @@ export default function ProductsPage() {
                 </Link>
 
                 <button
+                  disabled={!p.inStock}
                   onClick={() => {
                     addItem(p);
                     router.push("/cart");
@@ -83,11 +123,12 @@ export default function ProductsPage() {
                     padding: "8px 12px",
                     borderRadius: 999,
                     border: "1px solid #333",
-                    background: "transparent",
-                    cursor: "pointer",
+                    background: p.inStock ? "transparent" : "#eee",
+                    cursor: p.inStock ? "pointer" : "not-allowed",
+                    opacity: p.inStock ? 1 : 0.6,
                   }}
                 >
-                  Add to cart
+                  {p.inStock ? "Add to cart" : "Sold out"}
                 </button>
               </div>
             </div>
@@ -97,5 +138,3 @@ export default function ProductsPage() {
     </main>
   );
 }
-
-
