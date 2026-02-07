@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ReviewClient() {
   const params = useParams();
   const router = useRouter();
 
-  // Make sure id exists
   const productId = typeof params.id === "string" ? params.id : "";
 
   const [user, setUser] = useState("");
@@ -42,48 +42,109 @@ export default function ReviewClient() {
   }
 
   return (
-    <main className="p-8 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Leave a Review</h1>
+    <main style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px" }}>
+      <div style={{ display: "flex", gap: 14, marginBottom: 18 }}>
+        <Link href="/" style={{ textDecoration: "underline" }}>
+          Home
+        </Link>
+        <Link href="/products" style={{ textDecoration: "underline" }}>
+          ← Back to products
+        </Link>
+      </div>
 
-      {error && <p className="mb-4 text-red-600">{error}</p>}
+      <div
+        style={{
+          border: "1px solid #ddd",
+          borderRadius: 12,
+          background: "#fff",
+          padding: 24,
+          maxWidth: 520,
+          margin: "0 auto",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-4px)";
+          e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "none";
+          e.currentTarget.style.boxShadow = "none";
+        }}
+      >
+        <h1 style={{ margin: "0 0 16px" }}>Leave a review</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          className="w-full border rounded p-3"
-          placeholder="Your name"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
-          required
-        />
+        {error && (
+          <p style={{ color: "#b91c1c", marginBottom: 12 }}>{error}</p>
+        )}
 
-        <label className="block mb-1 font-semibold">
-  Rating
-  <select
-    className="w-full border rounded p-3"
-    value={rating.toString()}
-    onChange={(e) => setRating(parseInt(e.target.value, 10))}
-  >
-    {[5, 4, 3, 2, 1].map((r) => (
-      <option key={r} value={r.toString()}>
-        {r} Star{r !== 1 && "s"}
-      </option>
-    ))}
-  </select>
-</label>
+        <form onSubmit={handleSubmit} style={{ display: "grid", gap: 14 }}>
+          <input
+            style={{
+              width: "100%",
+              padding: 12,
+              borderRadius: 8,
+              border: "1px solid #ccc",
+              fontSize: 14,
+            }}
+            placeholder="Your name"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+            required
+          />
 
-        <textarea
-          className="w-full border rounded p-3"
-          rows={4}
-          placeholder="Write your review..."
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          required
-        />
+          <label style={{ fontSize: 13, color: "#444" }}>
+            Rating
+            <select
+              value={rating.toString()}
+              onChange={(e) => setRating(parseInt(e.target.value, 10))}
+              style={{
+                marginTop: 6,
+                width: "100%",
+                padding: 12,
+                borderRadius: 8,
+                border: "1px solid #ccc",
+                fontSize: 14,
+              }}
+            >
+              {[5, 4, 3, 2, 1].map((r) => (
+                <option key={r} value={r.toString()}>
+                  {r} Star{r !== 1 && "s"}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <button className="w-full bg-black text-white rounded py-3">
-          Submit Review
-        </button>
-      </form>
+          <textarea
+            rows={4}
+            placeholder="Write your review..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            required
+            style={{
+              width: "100%",
+              padding: 12,
+              borderRadius: 8,
+              border: "1px solid #ccc",
+              fontSize: 14,
+              resize: "vertical",
+            }}
+          />
+
+          <button
+            type="submit"
+            style={{
+              marginTop: 6,
+              padding: "12px 16px",
+              borderRadius: 999,
+              border: "1px solid #111",
+              cursor: "pointer",
+              fontSize: 14,
+            }}
+          >
+            Submit review
+          </button>
+        </form>
+      </div>
     </main>
   );
 }

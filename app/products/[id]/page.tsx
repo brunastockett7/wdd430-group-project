@@ -73,23 +73,23 @@ export default function ProductDetailPage() {
 
 
       <div
-  style={{
-    marginTop: 18,
-    border: "1px solid #ddd",
-    borderRadius: 12,
-    overflow: "hidden",
-    background: "#fff",
-    transition: "transform 0.2s, box-shadow 0.2s",
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.transform = "translateY(-4px)";
-    e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)";
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.transform = "none";
-    e.currentTarget.style.boxShadow = "none";
-  }}
->
+          style={{
+            marginTop: 18,
+            border: "1px solid #ddd",
+            borderRadius: 12,
+            overflow: "hidden",
+            background: "#fff",
+            transition: "transform 0.2s, box-shadow 0.2s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-4px)";
+            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "none";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
   <div style={{ position: "relative", width: "100%", height: 260, background: "#f5f5f5" }}>
     <Image
       src={product.image}
