@@ -248,3 +248,298 @@
     height: 180px;
   }
 }
+
+
+/* ---------- SEARCH BAR ---------- */
+.searchForm {
+  display: grid;
+  grid-template-columns: minmax(100, 500) repeat(auto-fit, minmax(70, 160));
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.searchSelect {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.searchNumber {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  max-width: 160px;
+}
+
+.searchButton {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid #333;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  overflow: hidden;
+  max-width: 100px;
+}
+
+.searchButton:hover {
+  background: #eee;
+}
+
+/* ---------- PRODUCTS GRID ---------- */
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+  place-items: center;
+}
+
+.productCard {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  max-width: 400px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.productImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  background: #f5f5f5;
+  padding: 10px;
+}
+
+.productContent {
+  padding: 16px;
+}
+
+.productName {
+  margin: 0 0 8px;
+}
+
+.productDescription {
+  margin: 0 0 10px;
+}
+
+.productPrice {
+  font-weight: bold;
+}
+
+.productActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.productButton {
+  margin-left: auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #333;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.productButton:hover {
+  background: #eee;
+}
+
+/* ---------- PRODUCT DETAIL ---------- */
+.productDetailCard {
+  margin-top: 18px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.productDetailCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.productDetailImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #f5f5f5;
+  padding: 14px;
+}
+
+.productDetailContent {
+  padding: 24px;
+}
+
+.productDetailSeller {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.productDetailRating {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.productDetailMaterials {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.productDetailMaterials span {
+  margin-left: 8px;
+  background: #fef3c7;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.productDetailDimensions {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.productDetailPrice {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.productDetailAddButton {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid #333;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.productDetailAddButton:hover {
+  background: #f0f0f0;
+}
+
+.productDetailSoldOut {
+  background: #eee;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ---------- REVIEWS ---------- */
+.reviewCard {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fafafa;
+  margin: 0px 10px;
+}
+
+.reviewFormWrapper {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  padding: 24px;
+  max-width: 520px;
+  margin: 0 auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reviewFormWrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.reviewFormInput,
+.reviewFormSelect,
+.reviewFormTextarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.reviewFormSelect {
+  margin-top: 6px;
+}
+
+.reviewFormTextarea {
+  resize: vertical;
+}
+
+.reviewFormButton {
+  margin-top: 6px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid #111;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.reviewFormButton:hover{
+  background: #5e5e5e;
+}
+
+.reviewError {
+  color: #b91c1c;
+  margin-bottom: 12px;
+}
+
+/* ---------- RESPONSIVE FOR PAGES ---------- */
+@media (max-width: 980px) {
+
+  .productActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .productDetailContent {
+    padding: 16px;
+  }
+
+  .productDetailImageWrapper {
+    height: 200px;
+    padding: 10px;
+  }
+
+  .searchForm {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .searchInput,
+  .searchSelect,
+  .searchNumber {
+    min-width: 100%;
+  }
+}

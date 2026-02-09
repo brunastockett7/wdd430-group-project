@@ -6,10 +6,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { Product, Review } from "../../lib/data";
 import { addItem } from "../../lib/cart";
+import styles from "../../page.module.css";
+
+
 
 export default function ProductDetailPage() {
   const router = useRouter();
   const params = useParams();
+  const API_URL = process.env.NEXT_PUBLIC_DB_API_URL;
 
   const id = useMemo(() => {
     const raw = params?.id;
@@ -21,66 +25,60 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !API_URL) return;
 
     setLoading(true);
 
-    fetch(`/api/products/${id}`)
+    fetch(`${API_URL}/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch(() => setProduct(null))
       .finally(() => setLoading(false));
 
-    fetch(`/api/products/${id}/reviews`)
+    fetch(`${API_URL}/api/products/${id}/reviews`)
       .then((res) => res.json())
       .then((data) => setReviews(Array.isArray(data) ? data : []))
       .catch(() => setReviews([]));
-  }, [id]);
+  }, [id, API_URL ]);
 
   if (loading) {
-    return <main style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px" }}>Loading product...</main>;
+    return (
+      <main className={styles.container}>
+      </main>
+    );
   }
 
   if (!product) {
     return (
-      <main style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px" }}>
+      <main className={styles.container} style={{marginTop: 10}}>
         <div style={{ display: "flex", gap: 14 }}>
-          <Link href="/" style={{ textDecoration: "underline" }}>
-            Home
-          </Link>
-          <Link href="/products" style={{ textDecoration: "underline" }}>
-            ← Back to products
-          </Link>
+          <Link href="/" className={styles.cardLink}>Home</Link>
+          <Link href="/products" className={styles.cardLink}>← Back to products</Link>
         </div>
+
         <p style={{ marginTop: 18 }}>Product not found.</p>
       </main>
     );
   }
 
   return (
-    <main style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px" }}>
+    <main className={styles.container} style={{marginTop: 10}}>
+      {/* Navigation */}
       <div style={{ display: "flex", gap: 14 }}>
-        <Link href="/" style={{ textDecoration: "underline" }}>
-          Home
-        </Link>
-        <Link href="/products" style={{ textDecoration: "underline" }}>
-          ← Back to products
-        </Link>
-        <Link href="/cart" style={{ marginLeft: "auto", textDecoration: "underline" }}>
+        <Link href="/" className={styles.cardLink}>Home</Link>
+        <Link href="/products" className={styles.cardLink}>← Back to products</Link>
+        <Link
+          href="/cart"
+          className={styles.cardLink}
+          style={{ marginLeft: "auto" }}
+        >
           View cart →
         </Link>
       </div>
 
-      <div
-        style={{
-          marginTop: 18,
-          border: "1px solid #ddd",
-          borderRadius: 12,
-          overflow: "hidden",
-          background: "#fff",
-        }}
-      >
-        <div style={{ position: "relative", width: "100%", height: 260, background: "#f5f5f5" }}>
+      {/* Product Detail Card */}
+      <div className={styles.productDetailCard}>
+        <div className={styles.productDetailImageWrapper}>
           <Image
             src={product.image}
             alt={product.name}
@@ -91,42 +89,75 @@ export default function ProductDetailPage() {
           />
         </div>
 
-        <div style={{ padding: 24 }}>
-          <h1 style={{ margin: "0 0 8px" }}>{product.name}</h1>
-          <p style={{ margin: "0 0 12px" }}>{product.description}</p>
+        <div className={styles.productDetailContent}>
+          <h1>{product.name}</h1>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <strong style={{ fontSize: 18 }}>${product.price.toFixed(2)}</strong>
+          <div className={styles.productDetailSeller}>
+            by <strong>{product.sellerName}</strong>
+          </div>
+
+          <div className={styles.productDetailRating}>
+            ⭐ {product.rating.toFixed(1)}
+          </div>
+
+          <p>{product.description}</p>
+
+          <div className={styles.productDetailMaterials}>
+            Materials:
+            {product.materials.map((m) => (
+              <span key={m}>{m}</span>
+            ))}
+            {product.handmade && <span>🖐 Handmade</span>}
+          </div>
+
+          {product.dimensions && (
+            <div className={styles.productDetailDimensions}>
+              Size: {product.dimensions}
+            </div>
+          )}
+
+          <div className={styles.productActions}>
+            <strong className={styles.productDetailPrice}>
+              ${product.price.toFixed(2)}
+            </strong>
 
             <button
+              disabled={!product.inStock}
               onClick={() => {
                 addItem(product);
                 router.push("/cart");
               }}
-              style={{
-                padding: "10px 16px",
-                borderRadius: 999,
-                border: "1px solid #333",
-                background: "transparent",
-                cursor: "pointer",
-              }}
+              className={`${styles.productDetailAddButton} ${
+                !product.inStock ? styles.productDetailSoldOut : ""
+              }`}
             >
-              Add to cart
+              {product.inStock ? "Add to cart" : "Sold out"}
             </button>
           </div>
         </div>
       </div>
 
-      <div style={{ marginTop: 18, border: "1px solid #ddd", borderRadius: 12, padding: 16, background: "#fff" }}>
-        <h2 style={{ margin: "0 0 10px" }}>Reviews</h2>
+      {/* Reviews */}
+      <div className={styles.productDetailCard} style={{padding: 12}}>
+        <div className={styles.productActions} style={{padding: 5}}>
+          <h2>Reviews</h2>
+
+          <Link
+            href={`/products/${id}/reviews`}
+            className={styles.cardLink}
+            style={{ marginLeft: "auto" }}
+          >
+            Write a review →
+          </Link>
+        </div>
 
         {reviews.length === 0 ? (
-          <p style={{ margin: 0 }}>No reviews yet.</p>
+          <p>No reviews yet.</p>
         ) : (
           <div style={{ display: "grid", gap: 10 }}>
             {reviews.map((r) => (
-              <div key={r.id}>
-                <strong>{r.user}</strong> — {r.rating}/5
+              <div key={(r as any)._id} className={styles.reviewCard}>
+                <strong>{r.user}</strong> – {r.rating}/5
                 <div>{r.comment}</div>
               </div>
             ))}
@@ -136,4 +167,3 @@ export default function ProductDetailPage() {
     </main>
   );
 }
-

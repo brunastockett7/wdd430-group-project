@@ -53,6 +53,7 @@ export default function RegisterClient() {
           required
           className="mt-2 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3"
           placeholder="Your name"
+          aria-label="Name"
         />
 
         <label className="mt-4 block text-sm font-semibold text-[var(--blue-dark)]">Email</label>
@@ -63,6 +64,7 @@ export default function RegisterClient() {
           type="email"
           className="mt-2 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3"
           placeholder="you@example.com"
+          aria-label="Email address"
         />
 
         <label className="mt-4 block text-sm font-semibold text-[var(--blue-dark)]">Password</label>
@@ -73,6 +75,7 @@ export default function RegisterClient() {
           type="password"
           className="mt-2 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3"
           placeholder="Create a password"
+          aria-label="Password"
         />
 
         <button className="mt-5 w-full rounded-full border border-[var(--border)] px-6 py-3 font-semibold hover:shadow-sm">
