@@ -16,30 +16,28 @@ export default function ReviewClient() {
   const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!productId) {
-      setError("Invalid product ID");
-      return;
-    }
-
-    try {
-      const res = await fetch(`/api/products/${productId}/reviews`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user, rating, comment }),
-      });
-
-      if (!res.ok) {
-        setError("Failed to submit review.");
-        return;
-      }
-
-      router.push(`/products/${productId}`);
-    } catch (err) {
-      setError("Something went wrong.");
-    }
+  if (!productId) {
+    setError("Invalid product ID");
+    return;
   }
+
+  const newReview = {
+    id: Date.now(),
+    productId: Number(productId),
+    user,
+    rating,
+    comment,
+  };
+
+  const key = `reviews:${productId}`;
+  const existing = JSON.parse(localStorage.getItem(key) || "[]");
+
+  localStorage.setItem(key, JSON.stringify([...existing, newReview]));
+
+  router.push(`/products/${productId}`);
+}
 
   return (
     <main style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px" }}>

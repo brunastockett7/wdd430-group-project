@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import type { Product, Review } from "../../lib/data";
+import { reviewsByProduct } from "../../lib/data";
+import type { Product } from "../../lib/data";
 import { addItem } from "../../lib/cart";
 
 export default function ProductDetailPage() {
@@ -17,7 +18,6 @@ export default function ProductDetailPage() {
   }, [params]);
 
   const [product, setProduct] = useState<Product | null>(null);
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,12 +30,19 @@ export default function ProductDetailPage() {
       .then((data) => setProduct(data))
       .catch(() => setProduct(null))
       .finally(() => setLoading(false));
-
-    fetch(`/api/products/${id}/reviews`)
-      .then((res) => res.json())
-      .then((data) => setReviews(Array.isArray(data) ? data : []))
-      .catch(() => setReviews([]));
   }, [id]);
+
+    const reviews = useMemo(() => {
+  if (!product) return [];
+
+  const staticReviews = reviewsByProduct[product.id] ?? [];
+  const localReviews =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem(`reviews:${product.id}`) || "[]")
+      : [];
+
+  return [...staticReviews, ...localReviews];
+}, [product]);
 
   if (loading) {
     return <main style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px" }}>Loading product...</main>;
