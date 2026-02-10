@@ -39,6 +39,7 @@ export default function ReviewClient() {
       return;
     }
 
+    /* Add Reviews */
     try {
       const res = await fetch(`${API_URL}/api/products/${productId}/reviews`, {
         method: "POST",
