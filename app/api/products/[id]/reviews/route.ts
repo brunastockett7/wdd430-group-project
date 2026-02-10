@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
  
 type Review = {
   id: string;
@@ -11,22 +11,28 @@ type Review = {
  
 const reviewStore: Review[] = [];
  
+// GET reviews for a product
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  const productId = params.id;
-  const reviews = reviewStore.filter((r) => r.productId === productId);
+  const { id } = await context.params;
+ 
+  const reviews = reviewStore.filter(
+    (review) => review.productId === id
+  );
+ 
   return NextResponse.json(reviews);
 }
  
+// POST a new review for a product
 export async function POST(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  const productId = params.id;
+  const { id } = await context.params;
  
-  const body = await req.json();
+  const body = await request.json();
   const user = String(body.user ?? "").trim();
   const rating = Number(body.rating);
   const comment = String(body.comment ?? "").trim();
@@ -45,7 +51,7 @@ export async function POST(
  
   const newReview: Review = {
     id: crypto.randomUUID(),
-    productId,
+    productId: id,
     user,
     rating,
     comment,
@@ -53,5 +59,6 @@ export async function POST(
   };
  
   reviewStore.unshift(newReview);
+ 
   return NextResponse.json(newReview, { status: 201 });
 }
