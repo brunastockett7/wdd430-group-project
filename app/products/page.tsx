@@ -3,99 +3,126 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { products } from "../lib/data";
+import { useEffect, useState } from "react";
+import { products as prod, Product } from "../lib/data";
 import { addItem } from "../lib/cart";
+import SearchBar from "../../components/SearchBar";
+import styles from "../page.module.css"; // import CSS module
+
+
 
 export default function ProductsPage() {
   const router = useRouter();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  
+  const API_URL = process.env.NEXT_PUBLIC_DB_API_URL;
+
+  useEffect(() => {
+    if (!API_URL) return;
+
+    fetch(`${API_URL}/api/products`)
+    .then((res) => res.json())
+    .then((data: Product[]) => {
+      setProducts(data);
+      setAllProducts(data);
+    })
+      
+  }, [API_URL]);
+
+  const prods = allProducts.length > 0 ? allProducts : prod;
+
+  // Extract unique categories
+  const categories = Array.from(new Set(prods.map((p) => p.category)));
+
+  // Handle search + filters
+  const handleSearch = (query: string, category: string, maxPrice: number) => {
+    if (products != null) {
+      const filtered = prods.filter((p) => {
+        let matchesQuery = false;
+        if (p.name.toLowerCase().includes(query.toLowerCase())) {
+          matchesQuery = true;
+        }
+        p.materials.forEach(M => {
+          if (M.toLowerCase().includes(query.toLowerCase())){
+            matchesQuery = true;
+          }
+        });
+        const matchesCategory = category ? p.category === category : true;
+        const matchesPrice = maxPrice ? p.price <= maxPrice : true;
+        return matchesQuery && matchesCategory && matchesPrice;
+      });
+      setProducts(filtered);
+    }
+  };
 
   return (
-    <main style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 20px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+    <main className={styles.container}>
+      <div className={styles.sectionHeader}>
         <div>
-          <h1>Explore Products</h1>
-          <p>Browse handcrafted items made with care.</p>
+          <h1 className={styles.sectionTitle}>Explore Products</h1>
+          <p className={styles.sectionText}>Browse handcrafted items made with care.</p>
         </div>
 
-        <div style={{ display: "flex", gap: 14 }}>
-          <Link href="/" style={{ textDecoration: "underline" }}>
-            Home
-          </Link>
-          <Link href="/cart" style={{ textDecoration: "underline" }}>
-            View cart →
-          </Link>
+        <div style={{ display: "flex", gap: 14, marginBottom: -10, marginTop: 10}}>
+          <Link href="/" className={styles.cardLink}>Home</Link>
+          <Link href="/cart" className={styles.cardLink}>View cart →</Link>
         </div>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: 16,
-          marginTop: 24,
-        }}
-      >
-        {products.map((p) => (
-          <div
-            key={p.id}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: 12,
-              overflow: "hidden",
-              background: "#fff",
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                height: 140,
-                background: "#f5f5f5",
-              }}
-            >
-              <Image
-                src={p.image}
-                alt={p.name}
-                fill
-                sizes="(max-width: 900px) 90vw, 320px"
-                style={{ objectFit: "contain", padding: 10 }}
-                priority={p.id === 1}
-              />
-            </div>
+      {/* Search + Filter Bar */}
+      <SearchBar categories={categories} onSearch={handleSearch} />
 
-            <div style={{ padding: 16 }}>
-              <h2 style={{ margin: "0 0 8px" }}>{p.name}</h2>
-              <p style={{ margin: "0 0 10px" }}>{p.description}</p>
-              <strong>${p.price.toFixed(2)}</strong>
+      {/* Product Grid */}
+      {products == null || products.length === 0 ? (
+        <p style={{ marginTop: 18 }}>Oops, there are no availiable products.</p>
+      ) : (<div className={styles.productsGrid}>
+            {products.map((p) => (
+              <div key={p.id} className={styles.productCard}>
+                <Link href={`/products/${p.id}`}>
+                    <div className={styles.productImageWrapper}>
+                      <Image
+                        src={p.image}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 900px) 95vw, 900px"
+                        style={{ objectFit: "contain", padding: 10 }}
+                        priority={p.id === 1}
+                      />
+                    </div>
 
-              <div style={{ display: "flex", gap: 10, marginTop: 12, alignItems: "center" }}>
-                <Link href={`/products/${p.id}`} style={{ textDecoration: "underline" }}>
-                  View details →
                 </Link>
+                
+                <div className={styles.productContent}>
+                  <Link href={`/products/${p.id}`}>
+                    <h2 className={styles.productName}>{p.name}</h2>
+                  </Link>
+                  
+                  <p className={styles.productDescription}>{p.description}</p>
+                  <strong className={styles.productPrice}>${p.price.toFixed(2)}</strong>
 
-                <button
-                  onClick={() => {
-                    addItem(p);
-                    router.push("/cart");
-                  }}
-                  style={{
-                    marginLeft: "auto",
-                    padding: "8px 12px",
-                    borderRadius: 999,
-                    border: "1px solid #333",
-                    background: "transparent",
-                    cursor: "pointer",
-                  }}
-                >
-                  Add to cart
-                </button>
+                  <div className={styles.productActions}>
+                    <Link href={`/products/${p.id}`} className={styles.cardLink}>
+                      View details →
+                    </Link>
+
+                    <button
+                      disabled={!p.inStock}
+                      onClick={() => {
+                        addItem(p);
+                        router.push("/cart");
+                      }}
+                      className={`${styles.productButton} ${
+                        !p.inStock ? styles.productDetailSoldOut : ""
+                      }`}
+                    >
+                      {p.inStock ? "Add to cart" : "Sold out"}
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            ))}
+          </div>)}     
     </main>
   );
 }
-
-

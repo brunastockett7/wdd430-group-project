@@ -15,7 +15,6 @@ export type Product = {
 
   category: string;
   rating: number;
-  reviewsCount: number;
   materials: string[];
   dimensions?: string;
   handmade: boolean;
@@ -23,7 +22,6 @@ export type Product = {
 };
 
 export type Review = {
-  id: number;
   productId: number;
   user: string;
   rating: number;
@@ -72,7 +70,6 @@ export const products: Product[] = [
       "A warm, sturdy mug made by hand — perfect for coffee, tea, and slow mornings.",
     category: "Ceramics",
     rating: 4.8,
-    reviewsCount: 124,
     materials: ["Clay", "Glaze"],
     dimensions: "10cm x 9cm",
     handmade: true,
@@ -89,7 +86,6 @@ export const products: Product[] = [
       "A linen tote with hand-embroidered flowers — pretty, practical, and easy to carry.",
     category: "Textiles",
     rating: 4.6,
-    reviewsCount: 89,
     materials: ["Linen", "Cotton Thread"],
     handmade: true,
     inStock: true,
@@ -105,7 +101,6 @@ export const products: Product[] = [
       "A cozy crochet blanket made with soft yarn — the kind you grab first on a cold day.",
     category: "Crochet",
     rating: 4.9,
-    reviewsCount: 156,
     materials: ["Yarn"],
     dimensions: "150cm x 120cm",
     handmade: true,
@@ -122,7 +117,6 @@ export const products: Product[] = [
       "Floral hoop art stitched slowly and carefully — a gentle touch for any room.",
     category: "Embroidery",
     rating: 4.7,
-    reviewsCount: 63,
     materials: ["Fabric", "Embroidery Thread", "Wood Hoop"],
     dimensions: "20cm diameter",
     handmade: true,
@@ -139,7 +133,6 @@ export const products: Product[] = [
       "A small carved wooden box for keepsakes — made to hold the little things that matter.",
     category: "Woodwork",
     rating: 4.8,
-    reviewsCount: 71,
     materials: ["Wood"],
     handmade: true,
     inStock: true,
@@ -155,7 +148,6 @@ export const products: Product[] = [
       "A durable handmade backpack — designed for daily use and adventure.",
     category: "Bags",
     rating: 4.5,
-    reviewsCount: 94,
     materials: ["Canvas", "Leather Straps"],
     handmade: true,
     inStock: true,
@@ -171,10 +163,9 @@ export const products: Product[] = [
       "A hand-shaped clay cup, fired and glazed for a natural, earthy feel.",
     category: "Ceramics",
     rating: 4.9,
-    reviewsCount: 52,
     materials: ["Clay", "Glaze"],
     handmade: true,
-    inStock: true,
+    inStock: false,
   },
   {
     id: 8,
@@ -187,7 +178,6 @@ export const products: Product[] = [
       "A delicate handmade bracelet crafted with carefully selected beads for everyday wear.",
     category: "Jewelry",
     rating: 4.6,
-    reviewsCount: 138,
     materials: ["Beads", "Elastic Cord"],
     handmade: true,
     inStock: true,
@@ -203,7 +193,6 @@ export const products: Product[] = [
       "A handcrafted clay vase — elegant, timeless, and perfect for fresh or dried flowers.",
     category: "Ceramics",
     rating: 4.8,
-    reviewsCount: 47,
     materials: ["Clay", "Glaze"],
     dimensions: "25cm height",
     handmade: true,
@@ -220,7 +209,6 @@ export const products: Product[] = [
       "A charming mini house carved from wood — a cozy decorative piece with handmade character.",
     category: "Home Decor",
     rating: 4.7,
-    reviewsCount: 59,
     materials: ["Wood"],
     handmade: true,
     inStock: true,
@@ -236,10 +224,9 @@ export const products: Product[] = [
       "A hand-crocheted rainbow wall piece made with soft yarn — cheerful, colorful, and perfect for brightening any space.",
     category: "Crochet",
     rating: 4.9,
-    reviewsCount: 83,
     materials: ["Yarn"],
     handmade: true,
-    inStock: true,
+    inStock: false,
   },
 ];
 
@@ -247,13 +234,82 @@ export const products: Product[] = [
 
 export const reviewsByProduct: Record<number, Review[]> = {
   1: [
-    {
-      id: 1,
-      productId: 1,
-      user: "Alice",
-      rating: 5,
-      comment: "Loved this mug! It feels so special and handmade in the best way.",
-    },
+    { productId: 1, user: "Alice", rating: 5, comment: "Absolutely love this mug. Feels cozy and solid." },
+    { productId: 1, user: "Mark", rating: 4, comment: "Great craftsmanship, keeps coffee warm." },
+    { productId: 1, user: "Sophie", rating: 5, comment: "Beautiful glaze and perfect size." },
+    { productId: 1, user: "Daniel", rating: 5, comment: "You can really feel it's handmade." },
+    { productId: 1, user: "Emma", rating: 5, comment: "My new favorite mug." },
+  ],
+
+  2: [
+    { productId: 2, user: "Lena", rating: 5, comment: "The embroidery is stunning!" },
+    { productId: 2, user: "Paul", rating: 4, comment: "Very practical and lightweight." },
+    { productId: 2, user: "Nina", rating: 5, comment: "Looks even better in real life." },
+    { productId: 2, user: "Chris", rating: 4, comment: "Nice bag for everyday use." },
+  ],
+
+  3: [
+    { productId: 3, user: "Olivia", rating: 5, comment: "So soft and warm. Perfect for winter." },
+    { productId: 3, user: "Ben", rating: 5, comment: "Amazing quality yarn." },
+    { productId: 3, user: "Ivy", rating: 5, comment: "Feels handmade with love." },
+    { productId: 3, user: "Max", rating: 4, comment: "A bit heavy but very cozy." },
+    { productId: 3, user: "Anna", rating: 5, comment: "Worth every euro." },
+  ],
+
+  4: [
+    { productId: 4, user: "Kate", rating: 5, comment: "Such delicate stitching." },
+    { productId: 4, user: "Leo", rating: 4, comment: "Looks great on my wall." },
+    { productId: 4, user: "Mia", rating: 5, comment: "Very calming piece." },
+    { productId: 4, user: "Tom", rating: 4, comment: "Nice handmade decor." },
+  ],
+
+  5: [
+    { productId: 5, user: "Robert", rating: 5, comment: "Beautiful wood texture." },
+    { productId: 5, user: "Ella", rating: 5, comment: "Perfect for jewelry." },
+    { productId: 5, user: "Sam", rating: 4, comment: "Solid and well-made." },
+    { productId: 5, user: "Nora", rating: 5, comment: "Smells like real wood, love it." },
+  ],
+
+  6: [
+    { productId: 6, user: "Alex", rating: 5, comment: "Very sturdy backpack." },
+    { productId: 6, user: "Julia", rating: 4, comment: "Comfortable straps." },
+    { productId: 6, user: "Ethan", rating: 4, comment: "Good size for daily use." },
+    { productId: 6, user: "Sara", rating: 5, comment: "Looks stylish and practical." },
+  ],
+
+  7: [
+    { productId: 7, user: "Megan", rating: 5, comment: "Love the earthy feel." },
+    { productId: 7, user: "Jon", rating: 5, comment: "Great for tea." },
+    { productId: 7, user: "Lucy", rating: 4, comment: "Nice texture." },
+    { productId: 7, user: "Peter", rating: 5, comment: "Simple and beautiful." },
+  ],
+
+  8: [
+    { productId: 8, user: "Ava", rating: 5, comment: "Very delicate and comfy." },
+    { productId: 8, user: "Noah", rating: 4, comment: "Looks great with any outfit." },
+    { productId: 8, user: "Lily", rating: 5, comment: "Perfect gift idea." },
+    { productId: 8, user: "Oscar", rating: 4, comment: "Good quality beads." },
+  ],
+
+  9: [
+    { productId: 9, user: "Hannah", rating: 5, comment: "Elegant and minimal." },
+    { productId: 9, user: "Tim", rating: 4, comment: "Looks great with flowers." },
+    { productId: 9, user: "Zoe", rating: 5, comment: "Very classy." },
+    { productId: 9, user: "Ivan", rating: 5, comment: "Amazing glaze." },
+  ],
+
+  10: [
+    { productId: 10, user: "Clara", rating: 5, comment: "Super cute decor!" },
+    { productId: 10, user: "Felix", rating: 4, comment: "Nice handmade vibe." },
+    { productId: 10, user: "Maria", rating: 5, comment: "Perfect for shelves." },
+    { productId: 10, user: "Ben", rating: 4, comment: "Good quality wood." },
+  ],
+
+  11: [
+    { productId: 11, user: "Isla", rating: 5, comment: "So cheerful!" },
+    { productId: 11, user: "Theo", rating: 5, comment: "Brightens the room instantly." },
+    { productId: 11, user: "Molly", rating: 4, comment: "Soft colors and nice yarn." },
+    { productId: 11, user: "Jack", rating: 5, comment: "Perfect kids room decor." },
   ],
 };
 

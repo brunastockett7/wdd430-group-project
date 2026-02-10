@@ -61,7 +61,9 @@ export default function RootLayout({
                 <Link href="/classes#membership" className="text-[var(--blue)]">
                   Membership
                 </Link>
-
+                <Link href="/sponsors" className="text-[var(--blue)]">
+                  Sponsors
+                </Link>
                 <AuthStatus />
               </nav>
             </div>
